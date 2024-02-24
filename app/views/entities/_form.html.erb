@@ -1,0 +1,90 @@
+<div class="container col-11 card p-5">
+    <br>
+    <%= form_with model: @entity do |form| %>
+        <% @entity.errors.full_messages.each do |error| %>
+            <div class="alert alert-danger" role="alert">
+                <%= error%> <%= alert %>
+            </div>
+        <% end %>    
+
+        <div class="row g-2">
+            <div class="col-sm-8">
+                <%= form.label :name,  style: "display: block" %>
+                <%= form.text_field :name,  class: "form-control" %>
+            </div>
+            <div class="col-sm-3">
+                        <% if @entity %>
+                            <% if @entity.logo.attached? %>
+                                <% if @entity.logo.image? %> 
+                                    <%= image_tag @entity.logo, data: {previews_target: "preview"}, class: "image_peq" %>
+                                <% end %>
+                            <% end %>
+                        <% end %>
+            </div>
+        </div> 
+        <br>
+        <div class="row g-2">
+            <div class="col-sm-5">
+                <%= form.label :document_entity,  style: "display: block" %>
+                <%= form.text_field :document_entity,  class: "form-control" %>
+            </div>
+            <div class="col-sm-6">
+                <%= form.label :phone,  style: "display: block" %>
+                <%= form.text_field :phone,  class: "form-control" %>
+            </div>
+        </div>  
+        <br>
+        <div class="row g-2">
+            <div class="col-sm-5">
+                <%= form.label :address,  style: "display: block" %>
+                <%= form.text_field :address,  class: "form-control" %>
+            </div>
+            <div class="col-sm-6">
+                <%= form.label :address_completa,  style: "display: block" %>
+                <%= form.text_field :address_completa,  class: "form-control" %>
+            </div>
+        </div>  
+        <br>
+        <div class="form-group">    
+            <%= form.label :email, style: "display: block" %>
+            <%= form.email_field :email,  class: "form-control", required: true %>
+        </div>
+        <br>
+        <div class="form-group">    
+            <%= form.label :name_count, style: "display: block" %>
+            <%= form.text_field :name_count,  class: "form-control" %>
+        </div>
+        <br>
+        <div class="row g-3">
+            <div class="col-sm-5">
+                <%= form.label :banco,  style: "display: block" %>
+                <%= form.text_field :banco,  class: "form-control" %>
+            </div>
+            <div class="col-sm-3">
+                <%= form.label :type_count,  style: "display: block" %>
+                <%= form.text_field :type_count,  class: "form-control" %>
+            </div>
+            <div class="col-sm-3">
+                <%= form.label :number_count,  style: "display: block" %>
+                <%= form.text_field :number_count,  class: "form-control" %>
+            </div>
+        </div>  
+        <br> 
+        <div class="form-group">    
+            <%= form.label :token, style: "display: block" %>
+            <%= form.text_field :token,  class: "form-control" %>
+        </div>
+        <br>
+        <div class="form-group">    
+            <%= form.label :logo,  style: "display: block" %> 
+            <%= form.file_field :logo,  class: "form-control", accept:"image/*", capture:"environment" %>
+        </div>
+
+
+        <br>    
+        <button type="submit" class="btn btn-sm btn-primary"><%=t('common.submit')%></button>
+        <%= link_to '<button class="btn btn-sm btn-primary" type="button">Retornar</button>'.html_safe, entities_path %>
+
+    <% end %>
+</div>        
+ <br>

@@ -1,0 +1,28 @@
+<br>
+<div class="container col-11 card p-5">
+        <div class="d-flex">
+            <div class="container">
+               <h2 class="display-5"> <%= t('.title')%></h2>
+            </div> 
+        </div>
+        <div>
+            <%= link_to t('.create_entity'), new_entity_path, class: 'btn btn-sm btn-primary'  %>
+        </div>
+        <hr>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col"><%= t('.id') %></th>
+                <th scope="col"><%= t('.name') %></th>
+                <th scope="col"><%= t('.address') %></th>
+                <th scope="col"><%= t('.phone') %></th>
+                <th scope="col"><%= t('.email') %></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <%= render partial: 'entity', collection: @entities  %>  
+        </tbody>      
+    </table>
+</div>
+<br>

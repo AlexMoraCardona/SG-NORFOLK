@@ -1,0 +1,53 @@
+<div class="container col-11 card p-5">
+    <br>
+    <%= form_with model: @contract do |form| %>
+        <% @contract.errors.full_messages.each do |error| %>
+            <div class="alert alert-danger" role="alert">
+                <%= error%> <%= alert %>
+            </div>
+        <% end %>    
+
+        <br>
+            <div class="row g-2">
+                <div class="col-sm-5">
+                    <%= form.label :status_contract,  style: "display: block" %>
+                    <%= form.select(:status_contract, [['VIGENTE', 'VIGENTE'], ['INACTIVO', 'INACTIVO'], ['ELIMINADO', 'ELIMINADO']]) %>
+                </div>
+                <div class="col-sm-6">
+                    <%= form.label :classification,  style: "display: block" %>
+                    <%= form.select(:classification, [['COBRO ACTIVO', 'COBRO ACTIVO'], ['COBRO INTERNO', 'COBRO INTERNO'], ['BAJA RECUPERACIÓN', 'BAJA RECUPERACIÓN'], ['INCOBRABLE', 'INCOBRABLE']]) %>
+                </div>
+            </div>  
+        <br>        
+        <div class="row g-2">
+            <div class="col-sm-5">
+                <%= form.label :cost_center_interfuerza,  style: "display: block" %>
+                <%= form.text_field :cost_center_interfuerza,  class: "form-control" %>
+            </div>
+            <div class="col-sm-6">
+                <%= form.label :id_cost_center_interfuerza,  style: "display: block" %>
+                <%= form.text_field :id_cost_center_interfuerza,  class: "form-control" %>
+            </div>
+        </div>  
+        <br> 
+        <div class="row g-2">
+            <div class="col-sm-7">
+                <%= form.label :analyst_id, style: "display: block" %>
+                <%= form.collection_select :analyst_id, Analyst.all.order(id: :asc), :id, :name, { prompt: '--Seleccionar Analista--' },
+                { class: 'form-control input-sm select2' } %>
+            </div>        
+            <div class="col-sm-3">
+            </div>        
+        </div>  
+        <br>    
+
+        <%= form.hidden_field :customer_id, :value => params[:id].to_i, class: "form-control" if params[:id].present? %>
+        
+
+        <br>    
+        <button type="submit" class="btn btn-primary"><%=t('common.submit')%></button>
+        <%= link_to '<button class="btn btn-primary" type="button">Retornar</button>'.html_safe, analysts_path %>
+
+    <% end %>
+</div>        
+ <br>

@@ -1,0 +1,39 @@
+<br>
+<div class="container col-11 card p-5">
+        <div class="d-flex">
+            <div class="container">
+               <h2 class="display-5"> <%= t('.title')%></h2>
+            </div> 
+        </div>
+        <div class="container"> 
+            <%= form_with method: :get  do |form| %>
+                <h5 scope="col">Filtrar por Cliente: </h5>
+                <%= form.collection_select :customer_id, Customer.all.order(id: :asc), :id, :name, { prompt: '--Seleccionar Cliente--' },
+                { class: 'form-control input-sm select2' , onChange: 'this.form.requestSubmit()', value: params[:customer_id] }  %>
+            <% end %>      
+        </div>  
+
+    <hr>
+
+        <hr>
+    <table class="table table-hover">
+        <thead>
+            <tr> 
+                <th scope="col"><%= t('.customer_id') %></th>
+                <th scope="col"><%= t('.id_filing') %></th>
+                <th scope="col"><%= t('.product_id') %></th>
+                <th scope="col"><%= t('.value_bruto') %></th>
+                <th scope="col"><%= t('.date_creation') %></th>
+                <th scope="col"><%= t('.state') %></th>
+                <th scope="col"><%= t('.date_expiration') %></th>
+                <th scope="col"><%= t('.contract_id') %></th>
+                <th scope="col"><%= t('.total_balance') %></th>
+                <th scope="col"><%= t('common.show') %></th>   
+            </tr>
+        </thead>
+        <tbody>
+            <%= render partial: 'pre_invoice', collection: @pre_invoices  %>  
+        </tbody>      
+    </table>
+</div>
+<br>

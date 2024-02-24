@@ -1,0 +1,16 @@
+@import "bootstrap"; 
+
+.avatar-mini{
+    height: 70px;
+    width: 70px;
+    /* los siguientes valores son independientes del tamaño del círculo */
+    background-repeat: no-repeat;
+    background-position: 50%;
+    border-radius: 50%;
+    background-size: 100% auto;    
+  }
+
+  .image_peq {
+    width: 100px;
+    height: auto;
+  }

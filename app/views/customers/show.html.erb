@@ -1,0 +1,415 @@
+<br>
+<div class="container col-11 card p-5">
+
+  <div class="row g-3">
+    <div class="col-sm-7">
+      <h2 class="display-6"><%= @customer.name %></h2>
+    </div>
+    <div class="col-sm-2">
+      <%= link_to t('common.create_contract'), crear_contrato_contracts_path(@customer.id), class: 'btn btn-sm btn-warning' %> &nbsp;
+    </div>
+    <div class="col-sm-2">
+      <%= link_to '<button class="btn btn-sm btn-primary" type="button">Retornar</button>'.html_safe, customers_path %>
+    </div>
+  </div> 
+  <div class="row g-2">
+    <div class="col-sm-5">
+      <strong><%= t('.name_project')%>:</strong> <%= @customer.name_project %>
+    </div>
+    <div class="col-sm-6">
+      <strong><%= t('.name_promotora')%>:</strong> <%= @customer.name_promotora %>
+    </div>
+  </div> 
+  <div class="row g-2">
+    <div class="col-sm-5">
+      <strong><%= t('.cost_center_id')%>:</strong> <%= @customer.cost_center.name if @customer.cost_center_id.present?%>
+    </div>
+    <div class="col-sm-6">
+      <strong> <%= @customer.nombre_empresa(@customer.entity_id) if @customer.entity_id.present?%>
+    </div>
+  </div> 
+  
+  <div><br></div>
+
+
+  <div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingEight">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+          Contratos
+        </button>
+      </h2>
+        <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+          
+            <% if @contracts.present?  then %>
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col"><%= t('.id') %></th>
+                    <th scope="col"><%= t('.date_contract') %></th>
+                    <th scope="col"><%= t('.classification') %></th>
+                    <th scope="col"><%= t('.name_analyst_id') %></th>
+                    <th scope="col"><%= t('.status_contract') %></th>
+                    <th scope="col"><%= t('common.show') %></th>   
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @contracts.each do |contract| %>              
+                    <tr>
+                      <td><%= contract.id %></td>
+                      <td><%= contract.created_at.strftime("%Y-%m-%d  %I:%M %p") %></td>
+                      <td><%= contract.classification %></td>
+                      <td><%= contract.analyst.name %></td>
+                      <td><%= contract.status_contract %></td>
+                      <td><%= link_to t('common.edit'), edit_contract_path(contract), class: 'btn btn-sm btn-primary'  %></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>  
+            <% end %>  
+          </div>
+        </div>  
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingTen">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+          Cuentas de cobro
+        </button>
+      </h2>
+        <div id="collapseTen" class="accordion-collapse collapse" aria-labelledby="headingTen" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+          
+            <% if @pre_invoices.present?  then %>
+              <table class="table table-hover">
+                <thead>
+                  <tr> 
+                    <th scope="col"><%= t('.id_filing') %></th>
+                    <th scope="col"><%= t('.product_id') %></th>
+                    <th scope="col"><%= t('.value_bruto') %></th>
+                    <th scope="col"><%= t('.date_creation') %></th>
+                    <th scope="col"><%= t('.state') %></th>
+                    <th scope="col"><%= t('.date_expiration') %></th>
+                    <th scope="col"><%= t('.contract_id') %></th>
+                    <th scope="col"><%= t('.total_balance') %></th>
+                    <th scope="col"><%= t('.days_late') %></th>
+                    <th scope="col"><%= t('common.show') %></th>   
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @pre_invoices.each do |pre_invoice| %>              
+                    <tr> 
+                      <% if pre_invoice.id_filing == nil  %>
+                        <td style="background-color:salmon"><%= pre_invoice.id_filing %></td>
+                      <% else  %>
+                        <td><%= pre_invoice.id_filing %></td>
+                      <% end  %>    
+                      <td><%= pre_invoice.product.name %></td>
+                      <td><%= pre_invoice.value_bruto %></td>
+                      <td><%= pre_invoice.date_creation.strftime("%Y-%m-%d") %></td>
+                      <td><%= pre_invoice.label_state(pre_invoice.state) %></td>
+                      <td><%= pre_invoice.date_expiration.strftime("%Y-%m-%d") %></td>
+                      <td><%= pre_invoice.contract_id %></td>
+                      <td><%= pre_invoice.total_balance %></td>
+                      <td><%= pre_invoice.days_late %></td>
+
+                      <td><%= link_to t('common.edit'), edit_pre_invoice_path(pre_invoice), class: 'btn btn-sm btn-primary'  %></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>  
+            <% end %>  
+          </div>
+        </div>  
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+          Información General
+        </button>
+      </h2>
+    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <div class="row">
+            <div class="col-sm-11">
+              <strong><%= t('.customer_class') %></strong><br><%= @customer.label_class(@customer.customer_class) if @customer.present? %>
+            </div>
+          </div> 
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.taxpayer_type') %></strong><br><%= @customer.label_taxpayer_type(@customer.taxpayer_type) if @customer.present? %>
+            </div>
+            <div class="col-sm-5">
+              <strong><%= t('.name') %></strong><br><%= @customer.name if @customer.present? %>
+            </div>
+          </div> 
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.ruc') %></strong><br><%= @customer.ruc if @customer.present? %>
+            </div>
+            <div class="col-sm-5">
+              <strong><%= t('.dv') %></strong><br><%= @customer.dv if @customer.present? %>
+            </div>
+          </div> 
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.email') %></strong><br><%= @customer.email if @customer.present? %>
+            </div>
+            <div class="col-sm-5">
+              <strong><%= t('.phone_1') %></strong><br><%= @customer.phone_1 if @customer.present? %>
+            </div>
+          </div> 
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.phone_2') %></strong><br><%= @customer.phone_2 if @customer.present? %>
+            </div>
+            <div class="col-sm-5">
+            </div>
+          </div> 
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Propiedades del Cliente
+        </button>
+      </h2>
+      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.category') %></strong><br><%= @customer.label_category(@customer.category) if @customer.present? %>
+            </div>
+            <div class="col-sm-5">
+              <strong><%= t('.priority') %></strong><br><%= @customer.label_priority(@customer.priority) if @customer.present? %>
+            </div>
+          </div> 
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.employees') %></strong><br><%= @customer.employees if @customer.present? %>
+            </div>
+            <div class="col-sm-5">
+              <strong><%= t('.industry') %></strong><br><%= @customer.industry if @customer.present? %>
+            </div>
+          </div> 
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.birth_date') %></strong><br><%= @customer.birth_date if @customer.present? %>
+            </div>
+            <div class="col-sm-5">
+              <strong><%= t('.taxes') %></strong><br><%= @customer.label_taxes(@customer.taxes) if @customer.present? %>
+            </div>
+          </div> 
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.status') %></strong><br><%= @customer.label_status(@customer.status) if @customer.present? %>
+            </div>
+            <div class="col-sm-5">
+            </div>
+          </div> 
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingThree">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Información Adicional
+        </button>
+      </h2>
+      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.cellular') %></strong><br><%= @customer.cellular if @customer.present? %>
+            </div>
+            <div class="col-sm-5">
+              <strong><%= t('.website') %></strong><br><%= @customer.website if @customer.present? %>
+            </div>
+          </div> 
+          <div class="row">
+            <div class="col-sm-11">
+              <strong><%= t('.address') %></strong><br><%= @customer.address if @customer.present? %>
+            </div>
+          </div> 
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.city') %></strong><br><%= @customer.city if @customer.present? %>
+            </div>
+            <div class="col-sm-5">
+              <strong><%= t('.state') %></strong><br><%= @customer.state if @customer.present? %>
+            </div>
+          </div> 
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.country') %></strong><br><%= @customer.country if @customer.present? %>
+            </div>
+            <div class="col-sm-5">
+            </div>
+          </div> 
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingFour">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          Propiedades del Crédito
+        </button>
+      </h2>
+      <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.credit_term') %></strong><br><%= @customer.label_credit_term(@customer.credit_term) if @customer.present? %>
+            </div>
+            <div class="col-sm-5">
+              <strong><%= t('.due_days') %></strong><br><%= @customer.due_days if @customer.present? %>
+            </div>
+          </div> 
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.credit_amount_limit') %></strong><br><%= @customer.credit_amount_limit if @customer.present? %>
+            </div>
+            <div class="col-sm-5">
+            </div>
+          </div> 
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingFive">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+          Programa de puntos
+        </button>
+      </h2>
+      <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <div class="row">
+            <div class="col-sm-11">
+              <strong><%= t('.points_program') %></strong><br><%= @customer.label_points_program(@customer.points_program) if @customer.present? %>
+            </div>
+          </div> 
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingSix">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+          Cuenta del Cliente
+        </button>
+      </h2>
+      <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.account_receivable') %></strong><br><%= @customer.account_receivable if @customer.present? %>
+            </div>
+            <div class="col-sm-5">
+              <strong><%= t('.account_receivable_client') %></strong><br><%= @customer.account_receivable_client if @customer.present? %>
+            </div>
+          </div> 
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingNine">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+          Correos electrónicos
+        </button>
+      </h2>
+      <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.email_1') %></strong><br><%= @customer.email_1 if @customer.present? %>
+            </div>
+            <div class="col-sm-5">
+              <strong><%= t('.email_2') %></strong><br><%= @customer.email_2 if @customer.present? %>
+            </div>
+          </div>
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.email_3') %></strong><br><%= @customer.email_3 if @customer.present? %>
+            </div>
+            <div class="col-sm-5">
+              <strong><%= t('.email_4') %></strong><br><%= @customer.email_4 if @customer.present? %>
+            </div>
+          </div> 
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.email_5') %></strong><br><%= @customer.email_5 if @customer.present? %>
+            </div>
+            <div class="col-sm-5">
+              <strong><%= t('.email_6') %></strong><br><%= @customer.email_6 if @customer.present? %>
+            </div>
+          </div> 
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.email_7') %></strong><br><%= @customer.email_7 if @customer.present? %>
+            </div>
+            <div class="col-sm-5">
+              <strong><%= t('.email_8') %></strong><br><%= @customer.email_8 if @customer.present? %>
+            </div>
+          </div> 
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.email_9') %></strong><br><%= @customer.email_9 if @customer.present? %>
+            </div>
+            <div class="col-sm-5">
+              <strong><%= t('.email_10') %></strong><br><%= @customer.email_10 if @customer.present? %>
+            </div>
+          </div> 
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingSeven">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+          Contactos
+        </button>
+      </h2>
+      <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+
+          <% if @contacts.present? %>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col"><%= t('.id_interno') %></th>
+                  <th scope="col"><%= t('.name_contact') %></th>
+                  <th scope="col"><%= t('.phone_1') %></th>
+                  <th scope="col"><%= t('.cellular') %></th>
+                  <th scope="col"><%= t('common.show') %></th>
+                </tr>
+              </thead>
+
+              <% @contacts.each do |contact| %>
+                <tr> 
+                  <td><%= contact.id_interno %></td> 
+                  <td><%= contact.name_contact %></td> 
+                  <td><%= contact.phone_1 %></td>
+                  <td><%= contact.cellular %></td> 
+                  <td><%= link_to t('common.show'), contact, class: 'btn btn-sm btn-primary' %></td>
+                </tr>   
+              <% end %>
+            </table>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <br>&nbsp;</br>
+  <%= link_to '<button class="btn btn-sm btn-primary" type="button">Retornar</button>'.html_safe, customers_path %>
+
+</div>
+<br>&nbsp;</br>
+
+
+
+
+
+

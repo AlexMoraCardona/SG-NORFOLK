@@ -1,0 +1,13 @@
+<tr>
+    <td><%= pre_invoice.customer.name %></td>
+    <td><%= pre_invoice.id_filing %></td>
+    <td><%= pre_invoice.product.name %></td>
+    <td><%= pre_invoice.value_bruto %></td>
+    <td><%= pre_invoice.date_creation.strftime("%Y-%m-%d") %></td>
+    <td><%= pre_invoice.label_state(pre_invoice.state) %></td>
+    <td><%= pre_invoice.date_expiration.strftime("%Y-%m-%d") %></td>
+    <td><%= pre_invoice.contract_id %></td>
+    <td><%= pre_invoice.total_balance %></td>
+
+    <td><%= link_to t('common.edit'), edit_pre_invoice_path(pre_invoice), class: 'btn btn-sm btn-primary'  %></td>
+</tr>

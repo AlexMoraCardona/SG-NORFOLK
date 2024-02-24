@@ -1,0 +1,12 @@
+<tr>
+    <td><%= analyst.id %></td>
+    <td><%= analyst.name %></td>
+    <td><%= analyst.document %></td>
+    <td><%= analyst.email %></td>
+    <td><%= analyst.cellular %></td>
+    <td><%= analyst.country %></td>
+
+    <td><%= link_to t('common.edit'), edit_analyst_path(analyst), class: 'btn btn-sm btn-primary'  %></td>
+    <td><%= link_to t('common.delete'), analyst, data: { 'turbo-method': :delete, 'turbo-confirm': 'Está seguro de eliminar el analista?' }, class: 'btn btn-sm btn-danger' %></td>
+
+</tr>

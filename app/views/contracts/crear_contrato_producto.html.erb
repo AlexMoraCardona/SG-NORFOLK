@@ -1,0 +1,70 @@
+<div class="container col-11 card p-5">
+    <br>
+    <%= form_with model: @contract_product do |form| %>
+        <% @contract_product.errors.full_messages.each do |error| %>
+            <div class="alert alert-danger" role="alert">
+                <%= error%> <%= alert %>
+            </div>
+        <% end %>    
+
+        <div class="row g-2">
+            <div class="col-sm-5">
+                <%= form.label :factor,  style: "display: block" %>
+                <%= form.select(:factor, [['MONTO', 0], ['PORCENTAJE', 1]]) %>
+            </div>
+            <div class="col-sm-6">
+                <%= form.label :periodicity,  style: "display: block" %>
+                <%= form.select(:periodicity, [['Mensual', 0], ['Trimestral', 1], ['Cuatrimestral', 2], ['Semestral', 3], ['OneTime', 4]]) %>
+            </div>
+        </div>        
+        <br>
+            <div class="form-group">  
+                <div class="col-sm-3">  
+                    <%= form.label :cost,  style: "display: block" %>
+                    <%= form.number_field :cost, in: 0.0..1000000.0, step: 0.01,  class: "form-control" %>
+                </div>
+            </div>
+        <br> 
+        <div class="row g-2">
+            <div class="col-sm-3">
+                <%= form.label :sale_value,  style: "display: block" %>
+                <%= form.number_field :sale_value, in: 0.0..1000000.0, step: 0.01,  class: "form-control" %>
+            </div>
+            <div class="col-sm-2">
+                <%= form.label :percentage,  style: "display: block" %>
+                <%= form.number_field :percentage, in: 0.0..100.0, step: 0.01,  class: "form-control" %>
+            </div>
+        </div>  
+        <br> 
+        <div class="row g-2">
+            <div class="col-sm-5">
+                <%= form.label :date_initial,  style: "display: block" %>
+                <%= form.date_field :date_initial,  class: "form-control" %>
+            </div>
+            <div class="col-sm-6">
+                <%= form.label :date_final,  style: "display: block" %>
+                <%= form.date_field :date_final,  class: "form-control" %>
+            </div>
+        </div>  
+        <br> 
+        <div class="row g-2">
+            <div class="col-sm-7">
+                <%= form.label :product_id, style: "display: block" %>
+                <%= form.collection_select :product_id, Product.all.order(id: :asc), :id, :name, { prompt: '--Seleccionar Producto--' },
+                { class: 'form-control input-sm select2' } %>
+            </div>        
+            <div class="col-sm-3">
+            </div>        
+        </div>  
+        <br>    
+
+        <%= form.hidden_field :contract_id, :value => params[:id].to_i, class: "form-control" if params[:id].present? %>
+        
+
+        <br>    
+        <button type="submit" class="btn btn-primary"><%=t('common.submit')%></button>
+        <%= link_to '<button class="btn btn-primary" type="button">Retornar</button>'.html_safe, analysts_path %>
+
+    <% end %>
+</div>        
+ <br>

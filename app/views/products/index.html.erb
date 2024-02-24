@@ -1,0 +1,37 @@
+<br>
+<div class="container col-11 card p-5">
+        <div class="d-flex">
+            <div class="container">
+               <h2 class="display-5"> <%= t('.title')%></h2>
+            </div> 
+        </div>
+        <div> 
+            <%= link_to t('.create_product'), new_product_path, class: 'btn btn-sm btn-primary'  %>
+            <%= link_to t('.actualizar_product'), actualizar_path, class: 'btn btn-sm btn-primary'  %>
+            #<%= link_to t('.actualizar_product'), pruebaget_path, class: 'btn btn-sm btn-primary'  %>
+
+        </div>
+        <hr>
+    <div>
+    aqui
+        <%= @code %><br>
+        <%= @respuesta %>
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col"><%= t('.id') %></th>
+                <th scope="col"><%= t('.name') %></th>
+                <th scope="col"><%= t('.codigo_inter') %></th>
+                <th scope="col"><%= t('common.edit') %></th>   
+                <th scope="col"><%= t('common.delete') %></th>   
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <%= render partial: 'product', collection: @products  %>  
+        </tbody>      
+    </table>
+</div>
+<br>

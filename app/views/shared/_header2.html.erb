@@ -1,0 +1,42 @@
+<div align="center"; class="container col-11">
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #87AFEB;">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+            </li>
+            <% if Current.user.level == 1 || Current.user.level == 2 %>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Configuraciones
+                    </a> 
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="levels">Niveles</a></li>
+                        <li><a class="dropdown-item" href="users">Usuarios</a></li>
+                        <li><a class="dropdown-item" href="customers">Clientes</a></li>
+                        <li><a class="dropdown-item" href="analysts">Analistas</a></li>
+                        <li><a class="dropdown-item" href="products">Productos</a></li>
+                        <li><a class="dropdown-item" href="pre_invoices">Cuentas de Cobro</a></li>
+                        <li><a class="dropdown-item" href="cost_centers">Centros de Costos</a></li>
+                        <li><a class="dropdown-item" href="entities">Empresas</a></li>
+                      </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Cuentas de cobro
+                    </a> 
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      <li><a class="dropdown-item" href="/pre_invoices/clientes">Cuentas de cobro por Cliente</a></li>
+                      <li><a class="dropdown-item" href="pre_invoices/estados">Cuentas de cobro por Estados</a></li>
+                      <li><a class="dropdown-item" href="pre_invoices/radicaciones">Cuentas de cobro Pendientes Radicar</a></li>
+
+                    </ul>
+                </li>
+
+            <% end %>
+          </ul>
+        </div>
+    </div>
+  </div>   
+</div>  

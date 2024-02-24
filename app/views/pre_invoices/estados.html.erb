@@ -1,0 +1,39 @@
+<br>
+<div class="container col-11 card p-5">
+        <div class="d-flex">
+            <div class="container">
+               <h2 class="display-5"> <%= t('.title')%></h2>
+            </div> 
+        </div>
+        <div class="container"> 
+            <%= form_with method: :get  do |form| %>
+                <h5 scope="col">Filtrar por Estados: </h5>
+                <%= form.select :state, [['Todos', 4],['Vigente', 0], ['Cancelado', 1], ['Vencido', 2], ['Eliminado', 3]], { prompt: '--Seleccionar Estado--' },
+                { class: 'form-control input-sm select2' , onChange: 'this.form.requestSubmit()', value: params[:state] }  %>
+            <% end %>      
+        </div>  
+
+    <hr>
+
+        <hr>
+    <table class="table table-hover">
+        <thead>
+            <tr> 
+                <th scope="col"><%= t('.custome_id') %></th>
+                <th scope="col"><%= t('.id_filing') %></th>
+                <th scope="col"><%= t('.product_id') %></th>
+                <th scope="col"><%= t('.value_bruto') %></th>
+                <th scope="col"><%= t('.date_creation') %></th>
+                <th scope="col"><%= t('.state') %></th>
+                <th scope="col"><%= t('.date_expiration') %></th>
+                <th scope="col"><%= t('.contract_id') %></th>
+                <th scope="col"><%= t('.total_balance') %></th>
+                <th scope="col"><%= t('common.show') %></th>   
+            </tr>
+        </thead>
+        <tbody>
+            <%= render partial: 'pre_invoice', collection: @pre_invoices  %>  
+        </tbody>      
+    </table>
+</div>
+<br>

@@ -1,0 +1,156 @@
+<br>
+<div class="container col-11 card p-5">
+  <h2 class="display-6"><%= @contact.name_contact %></h2>
+  <div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+          Información General
+        </button>
+      </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <div class="row">
+            <div class="col-sm-11">
+              <strong><%= t('.cliente') %></strong><br><%= @contact.customer.name if @contact.present? %>
+            </div>
+          </div> 
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.id_interno') %></strong><br><%= @contact.id_interno if @contact.present? %>
+            </div>
+            <div class="col-sm-5">
+              <strong><%= t('.agent') %></strong><br><%= @contact.agent if @contact.present? %>
+            </div>
+          </div> 
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.phone_1') %></strong><br><%= @contact.phone_1 if @contact.present? %>
+            </div>
+            <div class="col-sm-5">
+              <strong><%= t('.phone_2') %></strong><br><%= @contact.phone_2 if @contact.present? %>
+            </div>
+          </div> 
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.cellular') %></strong><br><%= @contact.cellular if @contact.present? %>
+            </div>
+            <div class="col-sm-5">
+              <strong><%= t('.phone_1') %></strong><br><%= @contact.phone_1 if @contact.present? %>
+            </div>
+          </div> 
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.personal_email') %></strong><br><%= @contact.personal_email if @contact.present? %>
+            </div>
+            <div class="col-sm-5">
+              <strong><%= t('.work_email') %></strong><br><%= @contact.work_email if @contact.present? %>
+            </div>
+          </div> 
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.address') %></strong><br><%= @contact.address if @contact.present? %>
+            </div>
+            <div class="col-sm-5">
+              <strong><%= t('.pulled_apart') %></strong><br><%= @contact.pulled_apart if @contact.present? %>
+            </div>
+          </div> 
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.city') %></strong><br><%= @contact.city if @contact.present? %>
+            </div>
+            <div class="col-sm-5">
+              <strong><%= t('.country') %></strong><br><%= @contact.country if @contact.present? %>
+            </div>
+          </div> 
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.birthDate') %></strong><br><%= @contact.birthDate if @contact.birthDate.present? %>
+            </div>
+            <div class="col-sm-5">
+              <strong><%= t('.state') %></strong><br><%= @contact.label_state(@contact.state) if @contact.present? %>
+            </div>
+          </div> 
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Información Adicional
+        </button>
+      </h2>
+      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.qualification') %></strong><br><%= @contact.qualification if @contact.present? %>
+            </div>
+            <div class="col-sm-5">
+              <strong><%= t('.website') %></strong><br><%= @contact.website if @contact.present? %>
+            </div>
+          </div> 
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.fax') %></strong><br><%= @contact.fax if @contact.present? %>
+            </div>
+            <div class="col-sm-5">
+              <strong><%= t('.company') %></strong><br><%= @contact.company if @contact.present? %>
+            </div>
+          </div> 
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.position') %></strong><br><%= @contact.position if @contact.present? %>
+            </div>
+            <div class="col-sm-5">
+              <strong><%= t('.deparment') %></strong><br><%= @contact.deparment if @contact.present? %>
+            </div>
+          </div> 
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingThree">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Información Portal
+        </button>
+      </h2>
+      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.portal_Access') %></strong><br><%= @contact.label_portal_Access(@contact.portal_Access) if @contact.present? %>
+            </div>
+            <div class="col-sm-5">
+              <strong><%= t('.portal_User') %></strong><br><%= @contact.portal_User if @contact.present? %>
+            </div>
+          </div> 
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.portal_Pass') %></strong><br><%= @contact.portal_Pass if @contact.present? %>
+            </div>
+            <div class="col-sm-5">
+              <strong><%= t('.portal_Profile') %></strong><br><%= @contact.portal_Profile if @contact.present? %>
+            </div>
+          </div> 
+          <div class="row g-2">
+            <div class="col-sm-6">
+              <strong><%= t('.portal_emaill') %></strong><br><%= @contact.portal_emaill if @contact.present? %>
+            </div>
+            <div class="col-sm-5">
+            </div>
+          </div> 
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+

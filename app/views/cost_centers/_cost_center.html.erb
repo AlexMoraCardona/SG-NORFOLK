@@ -1,0 +1,11 @@
+<tr>
+    <td><%= cost_center.id %></td>
+    <td><%= cost_center.id_interfuerza %></td>
+    <td><%= cost_center.name %></td>
+    <td><%= cost_center.description %></td>
+    <td><%= cost_center.label_inactive(cost_center.inactive) %></td>
+
+    <td><%= link_to t('common.edit'), edit_cost_center_path(cost_center), class: 'btn btn-sm btn-primary'  %></td>
+    <td><%= link_to t('common.delete'), cost_center, data: { 'turbo-method': :delete, 'turbo-confirm': 'Está seguro de eliminar el centro de costos?' }, class: 'btn btn-sm btn-danger' %></td>
+
+</tr>

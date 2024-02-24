@@ -1,0 +1,10 @@
+<tr>
+    <td><%= contract.id %></td>
+    <td><%= contract.customer.name %></td>
+    <td><%= contract.name_project %></td>
+    <td><%= contract.cost_center_interfuerza %></td>
+
+    <td><%= link_to t('common.edit'), edit_contract_path(contract), class: 'btn btn-sm btn-primary'  %></td>
+    <td><%= link_to t('common.delete'), contract, data: { 'turbo-method': :delete, 'turbo-confirm': 'Está seguro de eliminar el contrato?' }, class: 'btn btn-sm btn-danger' %></td>
+
+</tr>

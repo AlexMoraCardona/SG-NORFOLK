@@ -1,0 +1,214 @@
+<div class="container col-11 card p-5">
+    <div class="d-flex">
+        <div class="container">
+            <h2>Cliente: <%= @pre_invoice.customer.name %> </h2>  <%= link_to '<button class="btn btn-sm btn-primary" type="button">Retornar</button>'.html_safe, customer_path(@pre_invoice.customer_id) %>
+            <%= link_to '<button class="btn btn-sm btn-success" type="button">Radicar Cuentas de cobro</button>'.html_safe, customer_path(@pre_invoice.customer_id) if @pre_invoice.date_filing.blank? %>
+            <%= link_to "PDF", cc_pre_invoices_path(@pre_invoice.id, format: 'pdf'), class: 'btn btn-sm btn-success' %> &nbsp;
+
+        </div> 
+    </div>
+    <hr>
+    <br>
+    <div class="row g-2">
+        <div class="col-sm-4">
+            <strong><%= t('.contract_id') %></strong>
+            <%= @pre_invoice.contract_id %>
+        </div>        
+        <div class="col-sm-4">
+            <strong><%= t('.product_id') %></strong>
+            <%= @pre_invoice.product.name %> 
+        </div>        
+    </div>  
+    <br>
+
+    <div class="row g-3">
+        <div class="col-sm-4">
+            <strong><%= t('.date_creation') %></strong>
+            <%= @pre_invoice.date_creation %>
+        </div>        
+        <div class="col-sm-4">
+            <strong><%= t('.date_expiration') %></strong>
+            <%= @pre_invoice.date_expiration %> 
+        </div> 
+        <div class="col-sm-3">
+            <strong><%= t('.days_late') %></strong>
+            <%= @pre_invoice.days_late %> 
+        </div>        
+    </div>  
+    <br>
+    <div class="row g-3">
+        <div class="col-sm-4">
+            <strong><%= t('.date_filing') %></strong>
+            <%= @pre_invoice.date_filing %>
+        </div>        
+        <div class="col-sm-4">
+            <strong><%= t('.id_filing') %></strong>
+            <%= @pre_invoice.id_filing %> 
+        </div>   
+        <div class="col-sm-4">
+            <strong><%= t('.state') %></strong>
+            <%= @pre_invoice.label_state(@pre_invoice.state) %> 
+        </div>   
+    </div>  
+    <br>
+    <div class="row g-2">
+        <div class="col-sm-4">
+            <strong><%= t('.date_full_payment') %></strong>
+            <%= @pre_invoice.date_full_payment %>
+        </div>        
+        <div class="col-sm-4">
+            <strong><%= t('.date_last_payment') %></strong>
+            <%= @pre_invoice.date_last_payment %> 
+        </div>        
+    </div>  
+    <br>
+    <br>
+    <div class="row g-2">
+        <div class="col-sm-4">
+            <strong><%= t('.total_balance') %>USD$ </strong>
+            <%= @pre_invoice.total_balance %>
+        </div>        
+        <div class="col-sm-4">
+            <strong><%= t('.value_paid') %>USD$ </strong>
+            <%= @pre_invoice.value_paid %> 
+        </div>        
+    </div>  
+    <br>
+    <div class="form-group">    
+        <strong><%= t('.observations') %></strong>
+        <%= @pre_invoice.observations %>
+    </div>
+
+    <div class="row g-2">
+        <div class="col-sm-4">
+            <strong><%= t('.user_pre_invoice') %></strong>
+            <%= @pre_invoice.label_user(@pre_invoice.user_pre_invoice) if @pre_invoice.user_pre_invoice.to_i > 0 %>
+        </div>        
+        <div class="col-sm-4">
+            <strong><%= t('.analyst_id') %></strong>
+            <%= @pre_invoice.label_user(@pre_invoice.analyst_id) if @pre_invoice.analyst_id.present? %>
+        </div>        
+    </div>  
+    <hr>
+    <div class="row g-2">
+        <div class="col-sm-4">
+            <strong>+ <%= t('.value_bruto') %>USD$  </strong>
+        </div>        
+        <div class="col-sm-4">
+            <%= @pre_invoice.value_bruto %>
+        </div> 
+    </div>  
+    <div class="row g-2">
+        <div class="col-sm-4">
+            <strong>+ <%= t('.value_tax') %>USD$  </strong>
+        </div>        
+        <div class="col-sm-4">
+            <%= @pre_invoice.value_tax %>
+        </div> 
+    </div>  
+    <div class="row g-2">
+        <div class="col-sm-4">
+            <strong>+ <%= t('.value_interest') %>USD$  </strong>
+        </div>        
+        <div class="col-sm-4">
+            <%= @pre_invoice.value_interest %>
+        </div> 
+    </div>  
+    <div class="row g-2">
+        <div class="col-sm-4">
+            <strong>+ <%= t('.value_others') %>USD$  </strong>
+        </div>        
+        <div class="col-sm-4">
+            <%= @pre_invoice.value_others %>
+        </div> 
+    </div>  
+    <div class="row g-2">
+        <div class="col-sm-4">
+            <strong>- <%= t('.value_discount') %>USD$  </strong>
+        </div>        
+        <div class="col-sm-4">
+            <%= @pre_invoice.value_discount %>
+        </div> 
+    </div>  
+    <br>
+    <div class="row g-2">
+        <div class="col-sm-4">
+            <strong>= <%= t('.value_neto') %>USD$  </strong>
+        </div>        
+        <div class="col-sm-4">
+            <%= @pre_invoice.value_neto %>
+        </div> 
+    </div>  
+    <hr>
+      <br>
+      <h2 class="display-5"><%= t('.title') %></h2>
+    <hr>
+    <%= form_with model: @pre_invoice do |form| %>
+        <% @pre_invoice.errors.full_messages.each do |error| %>
+            <div class="alert alert-danger" role="alert">
+                <%= error%> <%= alert %>
+            </div>
+        <% end %>    
+        <div class="form-group">  
+            <div class="col-sm-11">  
+                <%= form.label :state,  style: "display: block" %>
+                <%= form.select(:state, [['Vigente', 0], ['Cancelado', 1], ['Vencido', 2], ['Eliminado', 3]]) %>
+            </div>
+        </div>
+        <br>
+        <div class="form-group">  
+            <div class="col-sm-11">  
+                <%= form.label :observations, style: "display: block" %>
+                <%= form.text_field :observations,  class: "form-control", required: true %>
+            </div>
+        </div>
+        <br>
+
+        <div class="row g-2">
+            <div class="col-sm-5">
+                <%= form.label :date_expiration,  style: "display: block" %>
+                <%= form.date_field :date_expiration,  class: "form-control" %>
+            </div>
+            <div class="col-sm-6">
+            </div>
+        </div>        
+        <br>
+
+        <div class="row g-2">
+            <div class="col-sm-5">
+                <%= form.label :value_bruto,  style: "display: block" %>
+                <%= form.number_field :value_bruto, in: 0.0..1000000.0, step: 0.01, class: "form-control" %>
+            </div>
+            <div class="col-sm-6">
+                <%= form.label :value_tax,  style: "display: block" %>
+                <%= form.number_field :value_tax, in: 0.0..1000000.0, step: 0.01, class: "form-control" %>
+            </div>
+        </div>        
+        <br>
+        <div class="row g-2">
+            <div class="col-sm-5">
+                <%= form.label :value_interest,  style: "display: block" %>
+                <%= form.number_field :value_interest, in: 0.0..1000000.0, step: 0.01, class: "form-control" %>
+            </div>
+            <div class="col-sm-6">
+                <%= form.label :value_others,  style: "display: block" %>
+                <%= form.number_field :value_others, in: 0.0..1000000.0, step: 0.01, class: "form-control" %>
+            </div>
+        </div>        
+        <br>
+        <div class="row g-2">
+            <div class="col-sm-5">
+                <%= form.label :value_discount,  style: "display: block" %>
+                <%= form.number_field :value_discount, in: 0.0..1000000.0, step: 0.01, class: "form-control" %>
+            </div>
+            <div class="col-sm-6">
+            </div>
+        </div>        
+        <br>
+
+        <%= form.submit 'Guardar', class: "btn btn-sm btn-primary", data: { turbo_confirm: 'Desea guardar los cambios?' }  %>     
+        <%= link_to '<button class="btn btn-sm btn-primary" type="button">Retornar</button>'.html_safe, customer_path(@pre_invoice.customer_id) %>
+
+    <% end %>
+</div>        
+ <br>

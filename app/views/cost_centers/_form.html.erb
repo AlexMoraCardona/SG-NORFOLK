@@ -1,0 +1,47 @@
+<div class="container col-11 card p-5">
+    <br>
+    <%= form_with model: @cost_center do |form| %>
+        <% @cost_center.errors.full_messages.each do |error| %>
+            <div class="alert alert-danger" role="alert">
+                <%= error%> <%= alert %>
+            </div>
+        <% end %>    
+        <div class="form-group">  
+            <div class="col-sm-11">  
+                <%= form.label :name, style: "display: block" %>
+                <%= form.text_field :name,  class: "form-control", required: true %>
+            </div>
+        </div>
+        <br>
+        <div class="form-group">  
+            <div class="col-sm-11">  
+                <%= form.label :description, style: "display: block" %>
+                <%= form.text_field :description,  class: "form-control", required: true %>
+            </div>
+        </div>
+        <br>
+
+        <div class="row g-2">
+            <div class="col-sm-5">
+                <%= form.label :id_interno,  style: "display: block" %>
+                <%= form.text_field :id_interno,  class: "form-control" %>
+            </div>
+            <div class="col-sm-6">
+                <%= form.label :id_interfuerza,  style: "display: block" %>
+                <%= form.text_field :id_interfuerza,  class: "form-control" %>
+        </div>
+        </div>        
+        <br>
+        <div class="row g-2">
+            <div class="col-sm-5">
+                <%= form.label :inactive,  style: "display: block" %>
+                <%= form.select(:inactive, [['NO', 0], ['SI', 1]]) %>
+            </div>
+        </div>        
+        <br>    
+        <button type="submit" class="btn btn-sm btn-primary"><%=t('common.submit')%></button>
+        <%= link_to '<button class="btn btn-sm btn-primary" type="button">Retornar</button>'.html_safe, cost_centers_path %>
+
+    <% end %>
+</div>        
+ <br>

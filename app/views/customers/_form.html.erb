@@ -1,0 +1,89 @@
+<div class="container col-11 card p-5">
+    <br>
+    <%= form_with model: @customer do |form| %>
+        <% @customer.errors.full_messages.each do |error| %>
+            <div class="alert alert-danger" role="alert">
+                <%= error%> <%= alert %>
+            </div>
+        <% end %>    
+
+        <br>        
+        <div class="row g-2">
+            <div class="col-sm-5">
+                <%= form.label :name_project,  style: "display: block" %>
+                <%= form.text_field :name_project,  class: "form-control" %>
+            </div>
+            <div class="col-sm-6">
+                <%= form.label :name_promotora,  style: "display: block" %>
+                <%= form.text_field :name_promotora,  class: "form-control" %>
+            </div>
+        </div>  
+        <br> 
+        <div class="row g-2">
+            <div class="col-sm-5">
+                <%= form.label :cost_center_id,  style: "display: block" %>
+                <%= form.collection_select :cost_center_id, CostCenter.all.order(id: :asc), :id,  :name, style: "width=50px" %>
+            </div>
+            <div class="col-sm-6">
+            </div>
+        </div>  
+        <br> 
+
+        <div class="row g-2">
+            <div class="col-sm-5">
+                <%= form.label :email_1,  style: "display: block" %>
+                <%= form.email_field :email_1,  class: "form-control" %>
+            </div>
+            <div class="col-sm-6">
+                <%= form.label :email_2,  style: "display: block" %>
+                <%= form.email_field :email_2,  class: "form-control" %>
+            </div>
+        </div>  
+        <div class="row g-2">
+            <div class="col-sm-5">
+                <%= form.label :email_3,  style: "display: block" %>
+                <%= form.email_field :email_3,  class: "form-control" %>
+            </div>
+            <div class="col-sm-6">
+                <%= form.label :email_4,  style: "display: block" %>
+                <%= form.email_field :email_4,  class: "form-control" %>
+            </div>
+        </div>  
+        <div class="row g-2">
+            <div class="col-sm-5">
+                <%= form.label :email_5,  style: "display: block" %>
+                <%= form.email_field :email_5,  class: "form-control" %>
+            </div>
+            <div class="col-sm-6">
+                <%= form.label :email_6,  style: "display: block" %>
+                <%= form.email_field :email_6,  class: "form-control" %>
+            </div>
+        </div>  
+        <div class="row g-2">
+            <div class="col-sm-5">
+                <%= form.label :email_7,  style: "display: block" %>
+                <%= form.email_field :email_7,  class: "form-control" %>
+            </div>
+            <div class="col-sm-6">
+                <%= form.label :email_8,  style: "display: block" %>
+                <%= form.email_field :email_8,  class: "form-control" %>
+            </div>
+        </div>  
+        <div class="row g-2">
+            <div class="col-sm-5">
+                <%= form.label :email_9,  style: "display: block" %>
+                <%= form.email_field :email_9,  class: "form-control" %>
+            </div>
+            <div class="col-sm-6">
+                <%= form.label :email_10,  style: "display: block" %>
+                <%= form.email_field :email_10,  class: "form-control" %>
+            </div>
+        </div>  
+
+        <br>
+
+        <button type="submit" class="btn btn-sm btn-primary"><%=t('common.submit')%></button>
+        <%= link_to '<button class="btn btn-sm btn-primary" type="button">Retornar</button>'.html_safe, customer_path(@customer.id) %> 
+    <% end %>
+</div>        
+ <br>

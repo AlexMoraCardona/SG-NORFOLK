@@ -1,0 +1,104 @@
+<div class="container col-11 card p-5">
+    <br>
+    <%= form_with model: @contract do |form| %>
+        <% @contract.errors.full_messages.each do |error| %>
+            <div class="alert alert-danger" role="alert">
+                <%= error%> <%= alert %>
+            </div>
+        <% end %>    
+
+        <div class="row g-2">
+            <div class="col-sm-8">
+                <h2 class="display-6">Cliente: <%= @contract.customer.name %></h2>
+                <h2 class="display-7">Contrato Nro: <%= @contract.id %></h2>
+            </div>
+            <div class="col-sm-3">
+                <%= link_to t('common.create_contract_product'), crear_contrato_producto_contracts_path(@contract.id), class: 'btn btn-sm btn-warning' %> &nbsp;
+            </div>
+        </div>          
+
+        <br>
+            <div class="row g-2">
+                <div class="col-sm-5">
+                    <%= form.label :status_contract,  style: "display: block" %>
+                    <%= form.select(:status_contract, [['VIGENTE', 'VIGENTE'], ['INACTIVO', 'INACTIVO'], ['ELIMINADO', 'ELIMINADO']]) %>
+                </div>
+                <div class="col-sm-6">
+                    <%= form.label :classification,  style: "display: block" %>
+                    <%= form.select(:classification, [['COBRO ACTIVO', 'COBRO ACTIVO'], ['COBRO INTERNO', 'COBRO INTERNO'], ['BAJA RECUPERACIÓN', 'BAJA RECUPERACIÓN'], ['INCOBRABLE', 'INCOBRABLE']]) %>
+                </div>
+            </div>  
+        <br>        
+        <div class="row g-2">
+            <div class="col-sm-5">
+                <%= form.label :cost_center_interfuerza,  style: "display: block" %>
+                <%= form.text_field :cost_center_interfuerza,  class: "form-control" %>
+            </div>
+            <div class="col-sm-6">
+                <%= form.label :id_cost_center_interfuerza,  style: "display: block" %>
+                <%= form.text_field :id_cost_center_interfuerza,  class: "form-control" %>
+            </div>
+        </div>  
+        <br> 
+        <div class="row g-2">
+            <div class="col-sm-7">
+                <%= form.label :analyst_id, style: "display: block" %>
+                <%= form.collection_select :analyst_id, Analyst.all.order(id: :asc), :id, :name, { prompt: '--Seleccionar Analista--' },
+                { class: 'form-control input-sm select2' } %>
+            </div>        
+            <div class="col-sm-3">
+            </div>        
+        </div>  
+        <br>    
+
+        <%= form.hidden_field :customer_id, :value => @contract.customer_id.to_i, class: "form-control" if @contract.customer_id.present? %>
+        
+
+        <br>    
+        <button type="submit" class="btn btn-sm btn-primary"><%=t('common.submit')%></button>
+        <%= link_to '<button class="btn btn-sm btn-primary" type="button">Retornar</button>'.html_safe, customer_path(@contract.customer_id) %> 
+
+    <% end %>
+    <hr>
+    <div class="col-sm-8">
+            <h2 class="display-6">Servicios Registrados</h2>
+    </div>          
+    <div class="col-sm-11">
+        <% if @contract_products.present?  then %>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col"><%= t('.name_product') %></th>
+                        <th scope="col"><%= t('.date_initial') %></th>
+                        <th scope="col"><%= t('.date_final') %></th>
+                        <th scope="col"><%= t('.periodicity') %></th>
+                        <th scope="col"><%= t('.factor') %></th>
+                        <th scope="col"><%= t('.cost') %></th>
+                        <th scope="col"><%= t('.sale_value') %></th>
+                        <th scope="col"><%= t('.percentage') %></th>
+                        <th scope="col"><%= t('common.show') %></th>   
+                        <th scope="col"><%= t('common.delete') %></th>   
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @contract_products.each do |contract_product| %>             
+                        <tr>
+                            <td><%= contract_product.product.name %></td>
+                            <td><%= contract_product.date_initial.strftime("%Y-%m-%d") if contract_product.date_initial.present? %></td>
+                            <td><%= contract_product.date_final.strftime("%Y-%m-%d") if contract_product.date_final.present? %></td>
+                            <td><%= contract_product.label_periodicity(contract_product.periodicity) if contract_product.present? %></td>
+                            <td><%= contract_product.label_factor(contract_product.factor) if contract_product.present? %></td>
+                            <td><%= contract_product.cost if contract_product.present? %></td>
+                            <td><%= contract_product.sale_value if contract_product.present? %></td>
+                            <td><%= contract_product.percentage if contract_product.present? %></td>
+                            <td><%= link_to t('common.edit'), edit_contract_product_path(contract_product), class: 'btn btn-sm btn-primary'  %></td>
+                            <td><%= link_to t('common.delete'), contract_product, data: { 'turbo-method': :delete, 'turbo-confirm': 'Está seguro de eliminar el servicio del contrato?' }, class: 'btn btn-sm btn-danger' %></td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>  
+        <% end %>  
+    </div>        
+</div>        
+ <br>
